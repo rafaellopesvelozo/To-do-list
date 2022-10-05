@@ -1,14 +1,19 @@
 const express = require("express");
 const path = require("path");
-const routes = require("./routes/routes")
-const app = express();
-const PORT = 3000;
+const routes = require("./routes/routes");
+const connectToDb = require("./database/db");
+const { urlencoded } = require("express");
 
+connectToDb();
+const app = express();
+const PORT = process.env.PORT || 3000;
 
 app.set("view engine", "ejs");
-app.use(express.static(path.join(__dirname, "public")))
-app.use(routes)
+app.use(express.static(path.join(__dirname, "public")));
 
+//receber oq esta vindo do index.ejs, formulario body
+app.use(express.urlencoded());
+app.use(routes);
 
 app.listen(PORT, () =>
   console.log(`Servidor rodando na porta http://localhost:${PORT}`)
