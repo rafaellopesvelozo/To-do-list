@@ -11,7 +11,13 @@
 </head>
 
 <body>
-
+    <% if (message != "") { %>
+        <section class="message message-<%= type %>">
+            <p><%= message %></p>
+            <span id="close-message"><i class="bi bi-x"></i></span>
+        </section>
+    <% } %>
+   
     <header>
 
         <% if (task==null) { %>
@@ -33,12 +39,11 @@
     <section id="tasks">
         <ul>
             <% tasksList.forEach((task)=>{ %>
-                <li>
+                <li class="check-<%= task.check %>">
                     <div>
-                        <a><%= task.task %></a>
+                        <a href="/check/<%= task._id %>" class="check-<%= task.check %>"><%= task.task %></a>
                         <span>Criado em <%= task.date.toLocaleDateString("pt-BR") %></span>
                     </div>
-                    
                     
                     <div>
                         <a class="btnUpdate" href="/getById/<%= task._id %>/update"><i class="bi bi-pencil-square"></i></a>
@@ -62,16 +67,13 @@
                 <div id="btns">
                     <a id="btnNot" href="/">Não</a>
                     <a id="btnYes" href="/deleteOne/<%= taskDelete._id %>">Sim</a>
-                </div>
-               
-                
+                </div>  
             </div>
         </section>
-        <%}%>
+    <%}%>
 
 
-
-            <script src="../public/script.js"></script>
+    <script src="script.js"></script>
 </body>
 
 </html>
